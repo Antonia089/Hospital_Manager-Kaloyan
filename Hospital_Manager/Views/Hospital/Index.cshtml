@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Hospital_Manager.ViewModels.Hospital.HospitalIndexViewModel>
+@{
+    ViewData["Title"] = "Hospitals";
+}
+
+<h1>Hospitals</h1>
+
+
+<p>
+    <a asp-action="Create">Create New Hospital</a> |
+    <a asp-controller="Doctor"
+       asp-action="Index">
+        View Doctors
+    </a>
+</p>
+<form asp-controller="Hospital" asp-action="Index" method="get">
+
+    <div class="row mb-3">
+
+        <div class="col-md-4">
+            <label class="form-label">Hospital Name</label>
+            <input type="text"
+                   name="search"
+                   value="@ViewBag.Search"
+                   class="form-control"
+                   placeholder="Search by name..." />
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Minimum Beds</label>
+            <input type="number"
+                   name="minBeds"
+                   value="@ViewBag.MinBeds"
+                   min="0"
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Sort By</label>
+
+            <select name="sortOrder" class="form-control">
+                <option value="name"
+                        selected="@(ViewBag.SortOrder == "name")">
+                     Name A-Z
+                </option>
+                <option value="beds_asc"
+                        selected="@(ViewBag.SortOrder == "beds_asc")">
+                    Beds Ascending
+                </option>
+                <option value="beds_desc"
+                        selected="@(ViewBag.SortOrder == "beds_desc")">
+                    Beds Descending
+                </option>
+            </select>
+        </div>
+        
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+        </div>
+
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BedsCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BedsCount)
+                </td>
+                <td>
+                    <a asp-controller="Hospital" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Hospital" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Hospital" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
