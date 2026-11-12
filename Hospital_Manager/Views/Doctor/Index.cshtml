@@ -6,10 +6,35 @@
 
 <h1>Doctors</h1>
 
+
 <p>
     <a asp-action="Create">Create New Doctor</a>
 </p>
-
+<div class="row mb-3">
+    <div class="col-md-3">
+        <label>Doctor Name</label>
+        <input type="text" id="search" class="form-control" placeholder="Search by name..." />
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-3">
+        <label>Doctor Specialty</label>
+        <input type="text" id="specialty" class="form-control" placeholder="Enter specialty..." />
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-3">
+        <label>Sort by </label>
+        <select id="sortOrder" class="form-control" >
+            <option value="name_asc">Name A-Z</option>
+            <option value="name_desc">Name Z-A</option>
+            <option value="speciality">Speciality A-Z</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="button" id="clearFilters" class="btn btn-secondary">Clear Filters</button>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -29,7 +54,7 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="dotorsTable">
         @foreach (var doctor in Model)
         {
             <tr>
